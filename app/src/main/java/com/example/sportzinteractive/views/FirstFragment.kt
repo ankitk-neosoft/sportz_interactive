@@ -7,16 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.sportzinteractive.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sportzinteractive.adapter.MatchAdapter
 import com.example.sportzinteractive.databinding.FragmentFirstBinding
 import com.example.sportzinteractive.model.MatchDetailsResponse
 import com.example.sportzinteractive.repository.AppRepository
 import com.example.sportzinteractive.util.Resource
+import com.example.sportzinteractive.util.errorSnack
 import com.example.sportzinteractive.viewmodels.MainViewModel
 import com.example.sportzinteractive.viewmodels.ViewModelProviderFactory
 import com.google.android.material.snackbar.Snackbar
-import com.example.sportzinteractive.util.errorSnack
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -30,7 +30,7 @@ class FirstFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: MainViewModel
-
+    lateinit var matchAdapter: MatchAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +43,23 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewModel()
+        init()
         getMatchDetails()
 
         //navigate to screen 2 with action data
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(FirstFragmentDirections.actionFirstFragmentToSecondFragment(viewModel.matchDetailsResponse))
-        }
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun init() {
+        binding.rvMatchList.setHasFixedSize(true)
+        binding.rvMatchList.layoutManager = LinearLayoutManager(activity)
+        matchAdapter = MatchAdapter()
+        setupViewModel()
     }
 
     //fetch the view modal instance from main activity/
@@ -89,12 +94,9 @@ class FirstFragment : Fragment() {
     }
 
     // render the data on UI
-    private fun updateViews(data: MatchDetailsResponse) {
-        binding.firstTeam.text = data.teams?.entries?.first()?.value?.nameFull ?: "No data"
-        binding.secondTeam.text = data.teams?.entries?.last()?.value?.nameFull ?: "No data"
-        binding.seriesName.text = data.matchdetail?.series?.name ?: "No data"
-        binding.venue.text = data.matchdetail?.venue?.name ?: "No data"
-        binding.dateTime.text = data.matchdetail?.match?.date.plus(" ${data.matchdetail?.match?.time}") ?: "No data"
+    private fun updateViews(data: List<MatchDetailsResponse>) {
+        matchAdapter.differ.submitList(data)
+        binding.rvMatchList.adapter = matchAdapter
     }
 
     private fun hideProgressBar() {

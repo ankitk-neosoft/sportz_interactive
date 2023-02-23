@@ -3,10 +3,10 @@ package com.example.sportzinteractive.network
 import com.example.sportzinteractive.model.MatchDetailsResponse
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface API {
 
-    @GET("sapk01222019186652.json")
-    suspend fun getMatchDetails(): Response<MatchDetailsResponse>
-
+    @GET("{json}")
+    suspend fun getMatchDetails(@Path("json") json : String): Response<MatchDetailsResponse>
 }
