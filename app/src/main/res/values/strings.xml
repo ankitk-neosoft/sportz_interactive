@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">SportzInteractive</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">Screen 1</string>
+    <string name="second_fragment_label">Screen 2</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="network_failure">Network failure</string>
+    <string name="conversion_error">Conversion error</string>
+    <string name="show_more_information">Show More Information</string>
+    <string name="match_details">Match Details</string>
+    <string name="display_all">Display All</string>
+    <string name="batting">Batting</string>
+    <string name="bowling">Bowling</string>
+    <string name="style">Style : </string>
+    <string name="average">Average : </string>
+    <string name="strike_rate">Strike rate : </string>
+    <string name="runs">Runs : </string>
+    <string name="wickets">Wickets : </string>
+    <string name="economy_rates">Economy rates :</string>
+    <string name="squad_of_teams">Squad of Teams</string>
+    <string name="team_b">Team B</string>
+    <string name="team_a">Team A</string>
+</resources>
