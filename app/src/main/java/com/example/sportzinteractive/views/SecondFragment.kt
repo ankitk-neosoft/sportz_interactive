@@ -81,7 +81,6 @@ class SecondFragment : Fragment() {
                 playerAdapter.differ.submitList(data.teams?.entries?.last()?.value?.players?.values?.toList())
             }
             2 -> {
-
                 binding.filterName.text = getString(R.string.display_all)
                 playerAdapter.differ.submitList(data.teams?.entries?.flatMap { it.value.players?.values!! })
             }
@@ -89,11 +88,13 @@ class SecondFragment : Fragment() {
 
         binding.rvPlayerList.adapter = playerAdapter
         binding.rvPlayerList.post {
+            // scroll to top on post data rendering
             binding.rvPlayerList.smoothScrollToPosition(0)
         }
 
     }
 
+    //initialize recycler view with adapter
     private fun init() {
         binding.rvPlayerList.setHasFixedSize(true)
         binding.rvPlayerList.layoutManager = LinearLayoutManager(activity)
@@ -101,6 +102,7 @@ class SecondFragment : Fragment() {
         setupViewModel()
     }
 
+    //show popup menu on filter icon click
     private fun showPopupMenu() {
         val popupMenu = PopupMenu(activity, binding.filter)
         popupMenu.inflate(R.menu.menu_main)

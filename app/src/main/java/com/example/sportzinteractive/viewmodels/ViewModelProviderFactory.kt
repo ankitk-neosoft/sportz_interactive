@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.sportzinteractive.repository.AppRepository
 
+// use for parameterised view model
 class ViewModelProviderFactory(
     val app: Application,
     val appRepository: AppRepository

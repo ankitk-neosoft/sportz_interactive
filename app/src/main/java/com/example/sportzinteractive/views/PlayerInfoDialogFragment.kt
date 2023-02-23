@@ -49,12 +49,14 @@ class PlayerInfoDialogFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 
+    // fetch view modal instance from base activity
     private fun setupViewModel() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(requireActivity().application, repository)
         viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
     }
 
+    // updating the views with data
     private fun updateViews(playerDetails: PlayerDetails) {
         binding.playerName.text = playerDetails.nameFull
 

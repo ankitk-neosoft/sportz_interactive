@@ -29,10 +29,13 @@ class MainViewModel(
         getMatchDetailData()
     }
 
+    //coroutine to fetch api within scope of view model
     fun getMatchDetailData() = viewModelScope.launch {
         fetchApiData()
     }
 
+
+    //network call and set status through Resource
     private suspend fun fetchApiData() {
         matchDetailLiveData.postValue(Resource.Loading())
         try {

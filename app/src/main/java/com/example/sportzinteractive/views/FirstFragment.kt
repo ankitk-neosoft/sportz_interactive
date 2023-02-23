@@ -46,6 +46,7 @@ class FirstFragment : Fragment() {
         setupViewModel()
         getMatchDetails()
 
+        //navigate to screen 2 with action data
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(FirstFragmentDirections.actionFirstFragmentToSecondFragment(viewModel.matchDetailsResponse))
         }
@@ -56,12 +57,14 @@ class FirstFragment : Fragment() {
         _binding = null
     }
 
+    //fetch the view modal instance from main activity/
     private fun setupViewModel() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(requireActivity().application, repository)
         viewModel = ViewModelProvider(requireActivity(), factory)[MainViewModel::class.java]
     }
 
+    //observe the data for various responses
     private fun getMatchDetails() {
         viewModel.matchDetailLiveData.observe(this, Observer { response ->
             when (response) {
@@ -85,6 +88,7 @@ class FirstFragment : Fragment() {
         })
     }
 
+    // render the data on UI
     private fun updateViews(data: MatchDetailsResponse) {
         binding.firstTeam.text = data.teams?.entries?.first()?.value?.nameFull ?: "No data"
         binding.secondTeam.text = data.teams?.entries?.last()?.value?.nameFull ?: "No data"

@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    //set up the view modal on main activity, it initialize here
     private fun setupViewModel() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(application, repository)
