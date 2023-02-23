@@ -20,6 +20,11 @@ class MainViewModel(
 
     val matchDetailLiveData: MutableLiveData<Resource<MatchDetailsResponse>> = MutableLiveData()
     lateinit var matchDetailsResponse : MatchDetailsResponse
+
+    fun isInitialize(): Boolean {
+     return ::matchDetailsResponse.isInitialized
+    }
+
     init {
         getMatchDetailData()
     }
